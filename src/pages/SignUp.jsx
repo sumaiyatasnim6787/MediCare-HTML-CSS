@@ -1,4 +1,6 @@
+import axios from "axios";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Form } from "../components";
 
 const SignUp = () => {
@@ -7,10 +9,18 @@ const SignUp = () => {
 
   const submit = (e) => {
     e.preventDefault();
-      console.log({
-        phoneNumber,
-        password,
-      });
+    axios({
+      method: "post",
+      url: " http://localhost:4000/api/v1/signup",
+      data: {
+        phone: phoneNumber,
+        password: password,
+      },
+    }).then((response)=>{
+        console.log(response);
+    });
+    
+    console.log("request done");
   };
 
   const getPhonNumber = (data) => {
@@ -29,6 +39,7 @@ const SignUp = () => {
         phoneNumber={getPhonNumber}
         Password={getPassword}
       />
+      <Link to="/signin">sign in</Link>
     </div>
   );
 };

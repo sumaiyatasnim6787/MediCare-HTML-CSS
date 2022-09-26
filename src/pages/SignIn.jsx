@@ -1,15 +1,23 @@
-import React,{useState} from "react";
+import axios from "axios";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Form } from "../components";
 
 const SignIn = () => {
-    const [phoneNumber, setphoneNumber] = useState("");
-    const [password, setpassword] = useState("");
+  const [phoneNumber, setphoneNumber] = useState("");
+  const [password, setpassword] = useState("");
 
   const submit = (e) => {
     e.preventDefault();
-    console.log({
-        phoneNumber,
-        password
+    axios({
+      method: "post",
+      url: "http://localhost:4000/api/v1/signin",
+      data: {
+        phone: phoneNumber,
+        password: password,
+      },
+    }).then((response) => {
+      console.log(response);
     });
   };
 
@@ -28,6 +36,7 @@ const SignIn = () => {
         phoneNumber={getphonNumber}
         Password={getPassword}
       />
+      <Link to="/signup">Sign Up</Link>
     </div>
   );
 };
